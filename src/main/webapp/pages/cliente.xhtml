@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:o="http://omnifaces.org/ui">
+
+
+
+
+<h:head>
+	<title>Cliente</title>
+	<h:outputScript library="js" name="scripts.js" />
+
+</h:head>
+<h:body>
+	<p:growl id="mensagem" />
+
+	<h:form id="formListagem">
+		<p:panel header="Cliente - Listagem">
+			<p:dataTable id="tabela" emptyMessage="Nao a registros cadastrados"
+				paginator="true" value="#{clienteBean.clientes}" var="cliente"
+				rows="10">
+
+				<f:facet name="footer">
+					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
+						update=":formCadastro:panelGridCadastro"
+						actionListener="#{clienteBean.novo()}">
+
+						<!-- reset do ajax -->
+						<f:actionListener
+							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+					</p:commandButton>
+				</f:facet>
+
+				<p:column headerText="Nome" sortBy="#{cliente.nome}"
+					filterBy="#{cliente.nome}">
+					<h:outputText value="#{cliente.nome}" />
+				</p:column>
+
+				<p:column headerText="CPF" sortBy="#{cliente.cpf}"
+					filterBy="#{cliente.cpf}">
+					<h:outputText value="#{cliente.cpf}" />
+				</p:column>
+
+				<p:column headerText="Email" sortBy="#{cliente.email}">
+					<h:outputText value="#{cliente.email}" />
+				</p:column>
+
+				<p:column headerText="Telefone" sortBy="#{cliente.telefone}">
+					<h:outputText value="#{cliente.telefone}" />
+				</p:column>
+
+				<p:column headerText="Servico" sortBy="#{cliente.servico.nome}"
+					filterBy="#{cliente.servico.nome}">
+					<h:outputText value="#{cliente.servico.nome}" />
+				</p:column>
+
+				<p:column headerText="Data" sortBy="#{cliente.agenda.dia}"
+					filterBy="#{cliente.agenda.dia}">
+					<h:outputText value="#{cliente.agenda.dia}" />
+				</p:column>
+
+
+				<p:column headerText="Horario"
+					sortBy="#{cliente.agenda.horario_inicio}"
+					filterBy="#{cliente.agenda.horario_inicio}">
+					<h:outputText value="#{cliente.agenda.horario_inicio.hours} " />
+					<h:outputText value=" - " />
+					<h:outputText value="#{cliente.agenda.horario_fim.hours} " />
+				</p:column>
+
+				<p:column headerText="Opcoes" width="100">
+
+					<!-- botao excluir -->
+					<p:commandButton icon="ui-icon-trash"
+						update=":mensagem :formListagem:tabela"
+						actionListener="#{clienteBean.excluir}">
+
+						<p:confirm header="Confirmacao" message="deseja excluir?"
+							icon="ui-icon-alert" />
+
+						<!-- pega estado selecionado e envia para o bean -->
+						<f:attribute name="clienteSelecionado" value="#{cliente}" />
+					</p:commandButton>
+
+					<!-- botao editar -->
+					<p:commandButton icon="ui-icon-pencil"
+						update=":formCadastro:panelGridCadastro"
+						oncomplete="PF('dialogo').show();"
+						actionListener="#{clienteBean.editar}">
+
+						<!-- reset do ajax  -->
+						<f:actionListener
+							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+
+						<f:attribute name="clienteSelecionado" value="#{cliente}" />
+
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+
+
+			<!-- Janela de confimacao para exclusao -->
+			<p:confirmDialog global="true" showEffect="fade">
+				<p:commandButton value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+
+				<p:commandButton value="Nao" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+		</p:panel>
+	</h:form>
+
+
+
+	<!-- Ao clicar no botao Novo -->
+	<p:dialog header="Cliente - Cadastro" widgetVar="dialogo"
+		resizable="false" modal="true">
+
+
+		<!-- Campo de texto -->
+		<h:form id="formCadastro">
+			<h:panelGrid columns="2" id="panelGridCadastro">
+
+
+				<p:outputLabel for="nomeID" value="Nome: " />
+				<p:inputText id="nomeID" maxlength="30" size="30" required="true"
+					requiredMessage="O campo 'Nome' é obrigatorio"
+					value="#{clienteBean.cliente.nome}" />
+
+				<p:outputLabel for="cpfID" value="CPF: " />
+				<p:inputText id="cpfID" maxlength="11" size="15" required="true"
+					requiredMessage="O campo 'cpf' é obrigatorio"
+					value="#{clienteBean.cliente.cpf}" />
+
+				<p:outputLabel for="emailID" value="email: " />
+				<p:inputText id="emailID" maxlength="30" size="30" required="true"
+					requiredMessage="O campo 'email' é obrigatorio"
+					value="#{clienteBean.cliente.email}" />
+
+				<p:outputLabel for="telefoneID" value="Telefone: " />
+				<p:inputText id="telefoneID" maxlength="8" size="12"
+					required="true" requiredMessage="O campo 'telefone' é obrigatorio"
+					value="#{clienteBean.cliente.telefone}" />
+
+				<p:outputLabel for="servicoID" value="Servico: " />
+				<p:selectOneMenu id="servicoID" filter="true"
+					value="#{clienteBean.cliente.servico}"
+					converter="omnifaces.SelectItemsConverter" required="true"
+					requiredMessage="O campo 'Servico' é Obrigatorio">
+
+					<f:selectItem noSelectionOption="true"
+						itemLabel="Selecione um Servico" />
+
+					<f:selectItems value="#{clienteBean.servicos}" var="servico"
+						itemValue="#{servico}" itemLabel="#{servico.nome}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel for="statusID" value="Ativo: " />
+				<p:selectBooleanCheckbox id="statusID"
+					value="#{clienteBean.cliente.status}" required="true"
+					requiredMessage="O campo 'Ativo' é obrigatorio" />
+
+
+				<p:outputLabel for="diaID" value="Dia: " />
+				<p:calendar id="diaID" effect="fold"
+					value="#{clienteBean.cliente.agenda.dia}" required="true"
+					requiredMessage="O Campo 'Dia' é obrigatorio" locale="pt_BR" />
+
+				<p:outputLabel for="horaInicioID" value="Hora inicial:" />
+				<p:calendar id="horaInicioID"
+					value="#{clienteBean.cliente.agenda.horario_inicio}"
+					pattern="HH:mm" timeOnly="true" locale="pt_BR" />
+
+				<p:outputLabel for="horaFimID" value="Hora final:" />
+				<p:calendar id="horaFimID"
+					value="#{clienteBean.cliente.agenda.horario_fim}" pattern="HH:mm"
+					timeOnly="true" />
+
+
+			</h:panelGrid>
+
+			<!-- Botoes -->
+			<h:panelGrid columns="2">
+				<p:commandButton value="Salvar"
+					actionListener="#{clienteBean.salvar}"
+					update=":mensagem :formCadastro:panelGridCadastro :formListagem:tabela" />
+				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
+			</h:panelGrid>
+		</h:form>
+	</p:dialog>
+</h:body>
+</html>
