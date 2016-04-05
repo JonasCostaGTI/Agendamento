@@ -3,9 +3,12 @@ package br.com.agendamento.service;
 import java.util.List;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import br.com.agendamento.DAO.ClienteDAO;
 import br.com.agendamento.domain.Cliente;
@@ -26,5 +29,36 @@ public class ClienteService {
 		return clientesJson;
 
 	}
+	
+	
+	//localhost:8081/Agendamento/service/clientes
+	@POST
+	public String salvar(String json) {
+		Gson gson = new Gson();
+		
+		Cliente cliente = gson.fromJson(json, Cliente.class);
+		
+		ClienteDAO clienteDAO = new ClienteDAO();
+		clienteDAO.merge(cliente);
+		
+		String clienteJson = gson.toJson(cliente);
+		return clienteJson;
+		
+	}
+	
+	// http://localhost:8081/Agendamento/service/clientes/codigo
+		@Path("{id}")
+		@GET
+		public String buscarPorCodigo(@PathParam("id") Long codigo) {
+
+			ClienteDAO clienteDAO = new ClienteDAO();
+			Cliente cliente = clienteDAO.buscarPorcodigo(codigo);
+
+			Gson gson = new Gson();
+			String clienteJson = gson.toJson(cliente);
+
+			return clienteJson;
+
+		}
 
 }
