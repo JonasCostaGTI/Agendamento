@@ -39,7 +39,7 @@ public class Cliente {
 	private String telefone;
 
 	@Column(name = "status", nullable = false)
-	private Boolean status;
+	private String status;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "agenda", nullable = false)
@@ -105,11 +105,11 @@ public class Cliente {
 		this.telefone = telefone;
 	}
 
-	public Boolean getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(Boolean status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 
