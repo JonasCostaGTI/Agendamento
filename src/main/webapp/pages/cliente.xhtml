@@ -69,9 +69,9 @@
 				<p:column headerText="Horario"
 					sortBy="#{cliente.agenda.horario_inicio}"
 					filterBy="#{cliente.agenda.horario_inicio}">
-					<h:outputText value="#{cliente.agenda.horario_inicio.hours} " />
+					<h:outputText value="#{cliente.agenda.horario_inicio} " />
 					<h:outputText value=" - " />
-					<h:outputText value="#{cliente.agenda.horario_fim.hours} " />
+					<h:outputText value="#{cliente.agenda.horario_fim} " />
 				</p:column>
 
 				<p:column headerText="Opcoes" width="100">
@@ -162,26 +162,7 @@
 						itemValue="#{servico}" itemLabel="#{servico.nome}" />
 				</p:selectOneMenu>
 
-				<p:outputLabel for="statusID" value="Ativo: " />
-				<p:selectBooleanCheckbox id="statusID"
-					value="#{clienteBean.cliente.status}" required="true"
-					requiredMessage="O campo 'Ativo' é obrigatorio" />
-
-
-				<p:outputLabel for="diaID" value="Dia: " />
-				<p:calendar id="diaID" effect="fold"
-					value="#{clienteBean.cliente.agenda.dia}" required="true"
-					requiredMessage="O Campo 'Dia' é obrigatorio" locale="pt_BR" />
-
-				<p:outputLabel for="horaInicioID" value="Hora inicial:" />
-				<p:calendar id="horaInicioID"
-					value="#{clienteBean.cliente.agenda.horario_inicio}"
-					pattern="HH:mm" timeOnly="true" locale="pt_BR" />
-
-				<p:outputLabel for="horaFimID" value="Hora final:" />
-				<p:calendar id="horaFimID"
-					value="#{clienteBean.cliente.agenda.horario_fim}" pattern="HH:mm"
-					timeOnly="true" />
+				
 
 
 			</h:panelGrid>
