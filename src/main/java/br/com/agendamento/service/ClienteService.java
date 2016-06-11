@@ -19,6 +19,7 @@ import br.com.agendamento.domain.Cliente;
 public class ClienteService {
 
 	// http://localhost:8081/Agendamento/service/clientes
+	@Path("/Lista")//android
 	@GET
 	public String listar() {
 		ClienteDAO clienteDAO = new ClienteDAO();
@@ -26,13 +27,13 @@ public class ClienteService {
 		
 		Gson gson = new Gson();
 		String clientesJson = gson.toJson(clientes);
-
 		return clientesJson;
 
 	}
 	
 	
 	//localhost:8081/Agendamento/service/clientes
+	@Path("/Salvar")//android
 	@POST
 	public String salvar(String json) {
 		Gson gson = new Gson();
@@ -82,6 +83,7 @@ public class ClienteService {
 		
 		
 		// http://localhost:8081/Agendamento/service/clientes
+		@Path("/Editar")//android
 		@PUT
 		public String editar(String json) {
 			

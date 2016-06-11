@@ -38,32 +38,14 @@ public class Cliente {
 	@Column(name = "telefone", nullable = false, unique = true, length = 8)
 	private String telefone;
 
-	@Column(name = "status", nullable = false)
-	private String status;
+	@Column(name = "horario", nullable = false)
+	private String horario;
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "agenda", nullable = false)
-	private Agenda agenda;
-
-	@ManyToOne(cascade = CascadeType.MERGE)
-	@JoinColumn(name = "servico", nullable = false)
-	private Servico servico;
-
-	public Servico getServico() {
-		return servico;
-	}
-
-	public void setServico(Servico servico) {
-		this.servico = servico;
-	}
-
-	public Agenda getAgenda() {
-		return agenda;
-	}
-
-	public void setAgenda(Agenda agenda) {
-		this.agenda = agenda;
-	}
+	@Column(name = "servico", nullable = false)
+	private String servico;
+	
+	@Column(name = "dia", nullable = false)
+	private String dia;
 
 	public Long getId() {
 		return id;
@@ -105,79 +87,40 @@ public class Cliente {
 		this.telefone = telefone;
 	}
 
-	public String getStatus() {
-		return status;
+	public String getHorario() {
+		return horario;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setHorario(String horario) {
+		this.horario = horario;
+	}
+
+	public String getServico() {
+		return servico;
+	}
+
+	public void setServico(String servico) {
+		this.servico = servico;
+	}
+
+	public String getDia() {
+		return dia;
+	}
+
+	public void setDia(String dia) {
+		this.dia = dia;
 	}
 
 	@Override
 	public String toString() {
 		return "Cliente [id=" + id + ", nome=" + nome + ", cpf=" + cpf + ", email=" + email + ", telefone=" + telefone
-				+ ", status=" + status + ", agenda=" + agenda + ", servico=" + servico + "]";
+				+ ", horario=" + horario + ", servico=" + servico + ", dia=" + dia + "]";
 	}
+	
+	
+	
+	
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((agenda == null) ? 0 : agenda.hashCode());
-		result = prime * result + ((cpf == null) ? 0 : cpf.hashCode());
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-		result = prime * result + ((status == null) ? 0 : status.hashCode());
-		result = prime * result + ((telefone == null) ? 0 : telefone.hashCode());
-		return result;
-	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Cliente other = (Cliente) obj;
-		if (agenda == null) {
-			if (other.agenda != null)
-				return false;
-		} else if (!agenda.equals(other.agenda))
-			return false;
-		if (cpf == null) {
-			if (other.cpf != null)
-				return false;
-		} else if (!cpf.equals(other.cpf))
-			return false;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (nome == null) {
-			if (other.nome != null)
-				return false;
-		} else if (!nome.equals(other.nome))
-			return false;
-		if (status == null) {
-			if (other.status != null)
-				return false;
-		} else if (!status.equals(other.status))
-			return false;
-		if (telefone == null) {
-			if (other.telefone != null)
-				return false;
-		} else if (!telefone.equals(other.telefone))
-			return false;
-		return true;
-	}
 
 }

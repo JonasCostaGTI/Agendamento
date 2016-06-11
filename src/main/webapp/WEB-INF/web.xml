@@ -23,7 +23,7 @@
 		<listener-class>br.com.agendamento.conexao.HibernateContexto</listener-class>
 	</listener>
 	
-	<!-- Configuracao do JFS -->
+	 <!-- Configuracao do JFS -->
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>
 		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -33,4 +33,6 @@
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
+
+	
 </web-app>
