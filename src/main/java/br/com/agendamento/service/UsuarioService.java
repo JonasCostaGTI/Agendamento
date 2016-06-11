@@ -11,89 +11,90 @@ import javax.ws.rs.PathParam;
 
 import com.google.gson.Gson;
 
-import br.com.agendamento.DAO.ClienteDAO;
-import br.com.agendamento.domain.Cliente;
+import br.com.agendamento.DAO.UsuarioDAO;
+import br.com.agendamento.domain.Usuario;
 
+@Path("usuarios")
 public class UsuarioService {
 	
-	// http://localhost:8081/Agendamento/service/clientes
+	// http://localhost:8081/Agendamento/service/usuarios
 		@Path("/Lista")//android
 		@GET
 		public String listar() {
-			ClienteDAO clienteDAO = new ClienteDAO();
-			List<Cliente> clientes = clienteDAO.listar();
+			UsuarioDAO usuarioDAO = new UsuarioDAO();
+			List<Usuario> usuarios = usuarioDAO.listar();
 			
 			Gson gson = new Gson();
-			String clientesJson = gson.toJson(clientes);
+			String clientesJson = gson.toJson(usuarios);
 			return clientesJson;
 
 		}
 		
 		
-		//localhost:8081/Agendamento/service/clientes
+		//localhost:8081/Agendamento/service/usuarios
 		@Path("/Salvar")//android
 		@POST
 		public String salvar(String json) {
 			Gson gson = new Gson();
 			
-			Cliente cliente = gson.fromJson(json, Cliente.class);
+			Usuario usuario = gson.fromJson(json, Usuario.class);
 			
-			ClienteDAO clienteDAO = new ClienteDAO();
-			clienteDAO.merge(cliente);
+			UsuarioDAO usuarioDAO = new UsuarioDAO();
+			usuarioDAO.merge(usuario);
 			
-			String clienteJson = gson.toJson(cliente);
-			return clienteJson;
+			String usuarioJson = gson.toJson(usuario);
+			return usuarioJson;
 			
 		}
 		
-		// http://localhost:8081/Agendamento/service/clientes/codigo
+		// http://localhost:8081/Agendamento/service/usuarios/codigo
 			@Path("{id}")
 			@GET
 			public String buscarPorCodigo(@PathParam("id") Long codigo) {
 
-				ClienteDAO clienteDAO = new ClienteDAO();
-				Cliente cliente = clienteDAO.buscarPorcodigo(codigo);
+				UsuarioDAO usuarioDAO = new UsuarioDAO();
+				Usuario usuario = usuarioDAO.buscarPorcodigo(codigo);
 
 				Gson gson = new Gson();
-				String clienteJson = gson.toJson(cliente);
+				String usuarioJson = gson.toJson(usuario);
 
-				return clienteJson;
+				return usuarioJson;
 
 			}
 			
 			
-			// http://localhost:8081/Agendamento/service/clientes/codigo
+			// http://localhost:8081/Agendamento/service/usuarios/codigo
 			@DELETE
 			@Path("{id}")
 			public String excluir(@PathParam("id") Long id) {
 				
-				ClienteDAO clienteDAO = new ClienteDAO();
-				Cliente cliente = clienteDAO.buscarPorcodigo(id);
+				UsuarioDAO usuarioDAO = new UsuarioDAO();
+				Usuario usuario = usuarioDAO.buscarPorcodigo(id);
 				
-				clienteDAO.excluir(cliente);
+				usuarioDAO.excluir(usuario);
 				
 				Gson gson = new Gson();
-				String clienteJson = gson.toJson(cliente);
+				String usuarioJson = gson.toJson(usuario);
 				
-				return clienteJson;
+				return usuarioJson;
 				
 			}
 			
 			
-			// http://localhost:8081/Agendamento/service/clientes
+			// http://localhost:8081/Agendamento/service/usuarios
 			@Path("/Editar")//android
 			@PUT
 			public String editar(String json) {
 				
 				Gson gson = new Gson();
-				Cliente cliente = gson.fromJson(json, Cliente.class);
+				Usuario usuario = gson.fromJson(json, Usuario.class);
 				
-				ClienteDAO clienteDAO = new ClienteDAO();
-				clienteDAO.editar(cliente);
+				UsuarioDAO usuarioDAO = new UsuarioDAO();
+				usuarioDAO.editar(usuario);
 				
-				String clienteJson = gson.toJson(cliente);
+				String usuarioJson = gson.toJson(usuario);
 				
-				return clienteJson;
+				return usuarioJson;
 				
 				
 			}
