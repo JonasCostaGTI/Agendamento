@@ -17,6 +17,16 @@ import br.com.agendamento.domain.Cliente;
 
 @Path("clientes")
 public class ClienteService {
+	
+	
+	@Path("/Ola")//android
+	@GET
+	public String ola() {
+		return "Ola Mundo";
+
+	}
+	
+	
 
 	// http://localhost:8081/Agendamento/service/clientes
 	@Path("/Lista")//android
