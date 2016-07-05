@@ -11,8 +11,8 @@
 		<!-- Configurações de Conexão com o Banco de Dados -->
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
 		<property name="connection.url">jdbc:mysql://localhost:3306/Agendamento</property>
-		<property name="connection.username">root</property>
-		<property name="connection.password">czc2v6</property>
+		<property name="connection.username">adminLThD3uy</property>
+		<property name="connection.password">PFw-GfR-I3_b</property>
 
 		<!-- Pool de Conexões -->
 		<property name="connection.pool_size">1</property>

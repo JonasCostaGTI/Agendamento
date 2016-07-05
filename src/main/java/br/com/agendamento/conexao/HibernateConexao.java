@@ -1,5 +1,7 @@
 package br.com.agendamento.conexao;
 
+import java.net.URL;
+
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -17,6 +19,10 @@ public class HibernateConexao {
 		try {
 			// busca o arquico hibernate.cfg.xml
 			Configuration configuracao = new Configuration().configure();
+			URL url = new URL("jdbc:mysql://"+System.getenv("OPENSHIFT_MYSQL_DB_HOST") + ":" + 
+					System.getenv("OPENSHIFT_MYSQL_DB_PORT")+ "/agendahorario");
+			
+			configuracao.configure(url);
 
 			ServiceRegistry registro = new StandardServiceRegistryBuilder().applySettings(configuracao.getProperties())
 					.build();
