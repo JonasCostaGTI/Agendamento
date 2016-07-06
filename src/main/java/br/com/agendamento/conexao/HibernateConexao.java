@@ -21,7 +21,7 @@ public class HibernateConexao {
 			Configuration configuracao = new Configuration().configure();
 			
 			URL url = new URL("jdbc:mysql://"+System.getenv("OPENSHIFT_MYSQL_DB_HOST") + ":" + 
-					System.getenv("OPENSHIFT_MYSQL_DB_PORT")+ "/agendahorario");
+					System.getenv("OPENSHIFT_MYSQL_DB_PORT")+ "/agendamento");
 			
 			configuracao.configure(url);
 
